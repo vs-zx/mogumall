@@ -12,11 +12,18 @@ export default {};
 
 <style scoped>
 .nav-bar {
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
   display: flex;
+  height:44px;
   line-height: 44px;
   text-align: center;
   letter-spacing: 3px;
+  background:#fff;
   box-shadow:0 1px 5px 0 rgba(100,100,100,.2);
+  z-index:3;
 }
 .nav-bar-left,.nav-bar-right {
   width: 60px;

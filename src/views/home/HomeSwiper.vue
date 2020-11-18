@@ -1,11 +1,13 @@
 <template>
-  <div class="swiper-wrap" v-if="banners.length">
-    <swiper ref="mySwiper" :options="swiperOptions">
+  <div class="home-swiper" v-if="banners.length&&isKeep">
+    <swiper ref="mySwiper" :options="swiperOptionsSwp1">
       <swiper-slide v-for="item of banners" :key="item.acm">
-        <img :src="item.image" alt="" />
+        <a :href="item.link" target="_black">
+          <img :src="item.image" :alt="item.title" />
+        </a>
       </swiper-slide>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
+      <div class="swiper-button-prev swp1" slot="button-prev"></div>
+      <div class="swiper-button-next swp1" slot="button-next"></div>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
   </div>
@@ -13,15 +15,20 @@
 
 <script>
 export default {
+  name:"HomeSwiper",
   props: {
     banners: {
       type: Array,
       default: [],
     },
+    isKeep:{
+      type:Boolean,
+      default:false
+    }
   },
   data() {
     return {
-      swiperOptions: {
+      swiperOptionsSwp1: {
         loop: true,
         // 自动切换
         autoplay: {
@@ -31,8 +38,8 @@ export default {
         },
         // 箭头按钮
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
+          nextEl: ".swiper-button-next.swp1",
+          prevEl: ".swiper-button-prev.swp1",
         },
         // 分页器配置
         pagination: {
@@ -42,13 +49,20 @@ export default {
       },
     };
   },
-  mounted() {
-    console.log(this.banners);
-  },
 };
 </script>
 
 <style lang="scss" scoped>
+.home-swiper {
+  width: 100%;
+}
+.swiper-slide {
+  width: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
 // 穿透分页器，修改背景色
 ::v-deep .swiper-pagination {
   .swiper-pagination-bullet {
@@ -73,14 +87,6 @@ export default {
   &::after {
     color: #fff;
     font-size: 30px;
-  }
-}
-
-.swiper-slide {
-  height: 200px;
-  img{
-    width:100%;
-    height:100%;
   }
 }
 </style>

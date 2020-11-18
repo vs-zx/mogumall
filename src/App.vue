@@ -1,21 +1,27 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive exclude="Detail">
+      <router-view />
+    </keep-alive>
     <main-tab-bar></main-tab-bar>
   </div>
 </template>
 
 <script>
-import MainTabBar from 'components/content/maintabbar/MainTabBar'
+import MainTabBar from "components/content/maintabbar/MainTabBar";
 
 export default {
-  components:{
-    MainTabBar
-  }
-}
+  components: {
+    MainTabBar,
+  },
+};
 </script>
 
 <style lang="scss">
 // 导入全局基本样式
 @import "~assets/css/base.css";
+#app {
+  width: 100%;
+  height: 100vh;
+}
 </style>

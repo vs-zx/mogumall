@@ -15,7 +15,10 @@
 <script>
 export default {
   props: {
-    path: String,
+    path:  {
+      type: String,
+      defaulte: "/home",
+    },
     activeColor: {
       type: String,
       defaulte: "red",
