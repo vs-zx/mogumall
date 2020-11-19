@@ -1,9 +1,9 @@
 <template>
-  <div class="home-swiper" v-if="banners.length&&isKeep">
+  <div class="home-swiper" v-if="banners.length && isKeep">
     <swiper ref="mySwiper" :options="swiperOptionsSwp1">
       <swiper-slide v-for="item of banners" :key="item.acm">
         <a :href="item.link" target="_black">
-          <img :src="item.image" :alt="item.title" />
+          <img class="swiper-lazy" :data-src="item.image" :alt="item.title" />
         </a>
       </swiper-slide>
       <div class="swiper-button-prev swp1" slot="button-prev"></div>
@@ -15,16 +15,16 @@
 
 <script>
 export default {
-  name:"HomeSwiper",
+  name: "HomeSwiper",
   props: {
     banners: {
       type: Array,
       default: [],
     },
-    isKeep:{
-      type:Boolean,
-      default:false
-    }
+    isKeep: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -46,6 +46,9 @@ export default {
           el: ".swiper-pagination",
           clickable: true,
         },
+        lazy: {
+          loadPrevNext: true,
+        },
       },
     };
   },
@@ -55,9 +58,16 @@ export default {
 <style lang="scss" scoped>
 .home-swiper {
   width: 100%;
+  height: 30vh;
 }
 .swiper-slide {
   width: 100%;
+  height: 30vh;
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   img {
     width: 100%;
     height: 100%;

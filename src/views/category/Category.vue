@@ -1,173 +1,172 @@
 <template>
   <div id="category">
-    <!-- 分类导航 -->
+    <!-- 导航 -->
     <nav-bar class="category-nav">
-      <template v-slot:center>
-        <div>分类</div>
-      </template>
+      <template v-slot:center>商品分类</template>
     </nav-bar>
-    <div class="btn" @click="handleScrollTo"></div>
-    <!-- 分类列表 -->
-    <div class="wrapper" ref="wrapper">
-      <ul class="content">
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>b</li>
-        <li>b</li>
-        <li>b</li>
-        <li>b</li>
-        <li>b</li>
-        <li>b</li>
-        <li>b</li>
-        <li ref="testLi">c</li>
-        <li>c</li>
-        <li>c</li>
-        <li>c</li>
-        <li>c</li>
-        <li>c</li>
-        <li>c</li>
-        <li>c</li>
-        <li>c</li>
-        <li>d</li>
-        <li>d</li>
-        <li>d</li>
-        <li>d</li>
-        <li>d</li>
-        <li>d</li>
-        <li>d</li>
-        <li>d</li>
-        <li>d</li>
-        <li>e</li>
-        <li>e</li>
-        <li>e</li>
-        <li>e</li>
-        <li>e</li>
-        <li>e</li>
-        <li>e</li>
-        <li>e</li>
-        <li>e</li>
-        <li>f</li>
-        <li>f</li>
-        <li>f</li>
-        <li>f</li>
-        <li>f</li>
-        <li>f</li>
-        <li>f</li>
-        <li>f</li>
-        <li>f</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-        <li>g</li>
-      </ul>
+    <!-- 内容区 分两侧-相对应 -->
+    <div class="category-content">
+      <!-- 左侧菜单 -->
+      <tab-menu :categories="categories" @selectItem="selectItem"></tab-menu>
+
+      <!-- <scroll id="tab-content" :data="[categoryData]">
+        <div>
+          <tab-content-category
+            :subcategories="showSubcategory"
+          ></tab-content-category>
+          <tab-control
+            :titles="['综合', '新品', '销量']"
+            @itemClick="tabClick"
+          ></tab-control>
+          <tab-content-detail
+            :category-detail="showCategoryDetail"
+          ></tab-content-detail>
+        </div>
+      </scroll> -->
     </div>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
+// import Scroll from "components/common/scroll/Scroll";
 
-// import BScroll from "better-scroll";
+import TabMenu from "./TabMenu";
+// import TabControl from 'content/tabControl/TabControl'
+// import TabContentCategory from './childComps/TabContentCategory'
+// import TabContentDetail from './childComps/TabContentDetail'
+
+import {
+  getCategory,
+  getSubcategory,
+  getCategoryDetail,
+} from "network/category";
+// import {POP, SELL, NEW} from "@/common/const";
+// import {tabControlMixin} from "@/common/mixin";
 
 export default {
   name: "Category",
   components: {
     NavBar,
+    TabMenu,
+    // Scroll,
+    // TabControl,
+    // TabContentCategory,
+    // TabContentDetail
+  },
+  // mixins: [tabControlMixin],
+  data() {
+    return {
+      categories: [], // 菜单数据
+      categoryData: {}, // 子类数据
+      currentIndex: -1, // 当前菜单位置
+    };
+  },
+  computed: {
+    // showSubcategory() {
+    //   if (this.currentIndex === -1) return {};
+    //   return this.categoryData[this.currentIndex].subcategories;
+    // },
+    // showCategoryDetail() {
+    //   if (this.currentIndex === -1) return [];
+    //   return this.categoryData[this.currentIndex].categoryDetail[
+    //     this.currentType
+    //   ];
+    // },
   },
   methods: {
-    handleScrollTo() {
-      console.log(1);
-      // this.scroll.scrollTo(0,-300);
-      // this.scroll.scrollToElement(this.$refs.testLi, 3000);
+    // 获取分类菜单数据
+    getCategoryMenu() {
+      getCategory().then((res) => this.getCategoryMenuSuccess(res));
+    },
+    getCategoryMenuSuccess(res) {
+      // 1 拿到菜单列表
+      this.categories = res.data.category.list;
+      // // 2 按照菜单，初始化子类
+      // for (let i = 0; i < this.categories.length; i++) {
+      //   this.categoryData[i] = {
+      //     subcategories: {},
+      //     categoryDetail: {
+      //       pop: [],
+      //       new: [],
+      //       sell: [],
+      //     },
+      //   };
+      // }
+      // // 3 请求第一分类数据
+      // this.getSubcategories(0);
+    },
+    // _getSubcategories(index) {
+    //   this.currentIndex = index;
+    //   const mailKey = this.categories[index].maitKey;
+    //   getSubcategory(mailKey).then((res) => {
+    //     this.categoryData[index].subcategories = res.data;
+    //     this.categoryData = { ...this.categoryData };
+    //     this._getCategoryDetail(POP);
+    //     this._getCategoryDetail(SELL);
+    //     this._getCategoryDetail(NEW);
+    //   });
+    // },
+    // _getCategoryDetail(type) {
+    //   // 1.获取请求的miniWallkey
+    //   const miniWallkey = this.categories[this.currentIndex].miniWallkey;
+    //   // 2.发送请求,传入miniWallkey和type
+    //   getCategoryDetail(miniWallkey, type).then((res) => {
+    //     // 3.将获取的数据保存下来
+    //     this.categoryData[this.currentIndex].categoryDetail[type] = res;
+    //     this.categoryData = { ...this.categoryData };
+    //   });
+    // },
+    /**
+     * 事件响应相关的方法
+     */
+    selectItem(index) {
+      this._getSubcategories(index);
     },
   },
   created() {
-    this.$nextTick(() => {
-      const el = this.$refs.wrapper;
-      // this.scroll = new BScroll(el, {
-      //   click: true,
-      //   pullDownRefresh: {
-      //     threshold: 50, // 下拉阈值，超过才会生效
-      //     stop: 0,
-      //   },
-      //   pullUpLoad: {
-      //     threshold: 50, // 上拉阈值，超过才会生效
-      //     stop: 0,
-      //   },
-      // });
+    // 请求菜单数据，并会在里面初始化子类对象；然后请求第一分类数据
+    this.getCategoryMenu();
+  },
 
-      // this.scroll.on('beforeScrollStart',()=>{
-      //   console.log('滚动之前');
-      // });
-      // this.scroll.on('scrollStart',()=>{
-      //   console.log('开始滚动');
-      // });
-      // this.scroll.on('scroll',()=>{
-      //   console.log('正在滚动');
-      // });
-      //  this.scroll.on('scrollEnd',()=>{
-      //   console.log('滚动结束');
-      // });
-      // this.scroll.on('flick',()=>{
-      //   console.log('flick');
-      // });
-      // this.scroll.on("pullingDown", () => {
-      //   console.log("向下拉");
-      //   this.scroll.finishPullDown();
-      // });
-      // this.scroll.on("pullingUp", () => {
-      //   console.log("向上拉");
-      //   this.scroll.finishPullUp();
-
-      // });
-    });
+  mounted() {
+    // console.log("------------- 标题");
+    // getCategory().then((res) => {
+    //   console.log(res);
+    // });
+    // console.log("------------- 分类之下所有商品");
+    // getSubcategory(3627).then((res) => {
+    //   console.log(res);
+    // });
+    // console.log("------------- 单独商品");
+    // getCategoryDetail(5000, pop).then((res) => {
+    //   console.log(res);
+    // });
   },
 };
 </script>
 
 <style lang="scss" scoped>
 #category {
-  padding-top: 44px;
-}
-.category-nav {
-  background: var(--background-color);
-}
-
-.wrapper {
+  position: relative;
   width: 100%;
-  height: 400px;
-  background: pink;
-  border: 2px solid red;
-  overflow: hidden;
-  li {
-    height: 28px;
-    border: 1px solid #000;
-    margin-bottom: 20px;
-    background: orange;
+  height: 100%;
+  padding-top: 44px;
+  padding-bottom: 49px;
+  .category-nav {
+    background-color: var(--tint-color);
+    font-weight: 700;
+    color: #fff;
+  }
+  .category-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
   }
 }
 
-.btn {
-  height: 100px;
-  background: blue;
-  opacity: 0.5;
+#tab-content {
+  height: 100%;
+  flex: 1;
 }
 </style>

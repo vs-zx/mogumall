@@ -41,7 +41,7 @@
         <img src="@/assets/img/tabbar/profile_active.svg" alt="" />
       </template>
       <template v-slot:item-text>
-        <div>用户</div>
+        <div>个人中心</div>
       </template>
     </tab-bar-item>
   </tab-bar>

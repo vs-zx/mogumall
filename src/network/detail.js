@@ -13,7 +13,7 @@ export function getDetailShopData(iid) {
 
 // 详情页推荐数据
 export function getRecommend() {
-  return axios({
+  return request({
     url: '/recommend'
   })
 }
@@ -53,6 +53,5 @@ export class GoodsParam {
     this.infosTitle = param.info.key; // 尺寸标题
     // 注: images可能没有值(某些商品有值, 某些没有值)
     this.image = param.info.images ? param.info.images[0] : []; // 商品图片
-    console.log(this.image);
   }
 }

@@ -2,7 +2,7 @@
   <div class="detail-swiper" v-if="banners.length">
     <swiper :options="swiperOptionsSwp2">
       <swiper-slide v-for="item in banners" :key="item">
-        <img :src="item" />
+        <img v-lazy="item" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>

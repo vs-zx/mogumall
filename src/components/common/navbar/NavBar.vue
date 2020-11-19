@@ -22,7 +22,7 @@ export default {};
   text-align: center;
   letter-spacing: 3px;
   background:#fff;
-  box-shadow:0 1px 5px 0 rgba(100,100,100,.2);
+  border-bottom:1px solid #fff;
   z-index:3;
 }
 .nav-bar-left,.nav-bar-right {

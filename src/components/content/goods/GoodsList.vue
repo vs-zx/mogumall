@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-wrap">
+  <div class="goods-wrap" v-if="goods.length">
       <goods-list-item v-for="(item,index) in goods" :goods-item="item" :key="index"/>
   </div>
 </template>

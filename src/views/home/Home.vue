@@ -16,7 +16,12 @@
     ></tab-control>
 
     <!-- 滚动内容 -->
-    <scroll class="home-content" ref="scroll" @updataGoods="updataGoods">
+    <scroll
+      class="home-content"
+      ref="scroll"
+      @updataGoods="updataGoods"
+      @scrolling="handleScrolling"
+    >
       <!-- 首页轮播 -->
       <home-swiper :banners="banners" :isKeep="isKeep"></home-swiper>
       <!-- 首页推荐 -->
@@ -31,7 +36,7 @@
         ref="tabControl"
       ></tab-control>
       <!-- 首页商品展示列表 -->
-      <goods-list :goods="currentGoods" class="content"></goods-list>
+      <goods-list :goods="currentGoods"></goods-list>
     </scroll>
 
     <!-- 回到顶部 -->
@@ -93,6 +98,7 @@ export default {
       type: ["pop", "new", "sell"],
       currentType: "pop",
       timer: null,
+      timer2: null,
       isShow: false,
       tabOffestTop: 0,
       isStick: false,
@@ -117,16 +123,19 @@ export default {
       this.keywords = res.data.keywords.list;
       this.recommends = res.data.recommend.list;
     },
-
     // 请求商品数据,根据每次的 类型，以及当前页码请求
     getHomeGoods(type) {
-      setTimeout(() => {
+      if (this.timer2) {
+        return;
+      }
+      this.timer2 = setTimeout(() => {
         // 先赋值，后 ++   ，所以每次都是请求对应类型的下一页数据
         let page = this.goods[type].page++;
         getHomeGoodsData(type, page).then((res) =>
           this.getHomeGoodsDataSucess(res)
         );
-      }, 1000);
+        this.timer2 = null;
+      }, 900);
     },
     getHomeGoodsDataSucess(res) {
       // console.log(res);
@@ -136,7 +145,6 @@ export default {
       const type = res.data.sort;
       this.goods[type].list.push(...res.data.list);
     },
-
     // 点击tab切换类型。切换展示列表
     handleTabClick(idx) {
       this.currentType = this.type[idx];
@@ -152,20 +160,12 @@ export default {
       // console.log(this.$refs.scroll);
       this.$refs.scroll.scroll.scrollTo(0, 0, 2000);
     },
+    // 对实时滚动，做出操作  —— 决定返回按钮、tabControl的显示性
+    handleScrolling(position) {
+      this.initTabOffset();
 
-    // 实时检测content的滚动
-    watchPageScroll() {
-      this.$refs.scroll.scroll.on("scroll", (position) => {
-        if (this.timer) {
-          return;
-        }
-        this.timer = setTimeout(() => {
-          this.initTabOffset();
-          this.showTabStick(-position.y);
-          this.showBackTop(-position.y);
-          this.timer = null;
-        }, 300);
-      });
+      this.showTabStick(-position.y);
+      this.showBackTop(-position.y);
     },
     // 初始化tabControl的y轴偏移量
     initTabOffset() {
@@ -181,9 +181,8 @@ export default {
     },
     // 控制backtop的显示隐藏
     showBackTop(y) {
-      this.isShow = y > 900;
+      this.isShow = y > 600;
     },
-
     // 上拉加载新数据  根据当前类型去请求数据
     updataGoods() {
       this.getHomeGoods(this.currentType);
@@ -193,16 +192,18 @@ export default {
     // 初始化请求数据
     this.getHomeMulti();
     this.getHomeGoods("pop");
-    this.getHomeGoods("new");
-    this.getHomeGoods("sell");
+    setTimeout(() => {
+      this.getHomeGoods("new");
+    }, 1000);
+    setTimeout(() => {
+      this.getHomeGoods("sell");
+    }, 2000);
     console.log("created");
   },
   mounted() {
     this.$nextTick(() => {
       // 初始化，确保可滑动
       this.$refs.scroll.scroll.refresh();
-      // 开始启用监听 scroll
-      this.watchPageScroll();
     });
   },
   activated() {
@@ -228,17 +229,16 @@ export default {
     color: #fff;
     font-weight: bold;
   }
+  .tab-stick {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 44px;
+    transition: all 0.5s;
+    z-index: 9;
+  }
   .home-content {
     height: 100%;
   }
-}
-
-.tab-stick {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 44px;
-  transition: all 0.5s;
-  z-index: 9;
 }
 </style>

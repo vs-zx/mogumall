@@ -1,7 +1,8 @@
 <template>
   <div class="goods-item" @click="toDetail">
-    <div class="goods-link">
-      <img :src="goodsItem.show.img" :alt="goodsItem.title" />
+    <!-- 首页商品、详情页推荐商品的数据格式不一样 添加判断 -->
+    <div class="goods-img">
+      <img v-lazy="realUrl" :alt="goodsItem.title" />
     </div>
     <div class="goods-info">
       <p class="goods-desc">{{ goodsItem.title }}</p>
@@ -20,9 +21,20 @@ export default {
       default: {},
     },
   },
+  computed: {
+    // 判断当前图片url  ，优先首页
+    realUrl() {
+      return this.goodsItem.show === undefined
+        ? this.goodsItem.image
+        : this.goodsItem.show.img;
+    },
+  },
   methods: {
+    // 推荐商品没有iid，无法跳转至详情页
     toDetail() {
-      this.$router.push("/detail/"+this.goodsItem.iid);
+      if (this.goodsItem.iid) {
+        this.$router.push("/detail/" + this.goodsItem.iid);
+      }
     },
   },
 };
@@ -34,13 +46,13 @@ export default {
   width: 48%;
   margin-top: 8px;
   padding-bottom: 40px;
-  border-radius: 5px;
+  border-radius: 2vw;
   background: #fff;
   overflow: hidden;
   &:hover {
     box-shadow: 0px 2px 10px 0 rgba(0, 0, 0, 0.2);
   }
-  .goods-link {
+  .goods-img {
     margin-bottom: 5px;
     img {
       width: 100%;
