@@ -134,7 +134,10 @@ export default {
     getDetailShop() {
       getDetailShopData(this.iid).then((res) =>
         this.getDetailShopDateSucess(res)
-      );
+      ).catch(err=>{
+        console.log(err);
+        this.$router.push('/home')
+      });
     },
     getDetailShopDateSucess(res) {
       const data = res.result;

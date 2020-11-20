@@ -4,8 +4,6 @@
 //                  未购买的商品，作为购物车内所有的商品存在
 // 未选中的商品不参与价格计算
 
-
-
 const getters = {
   cartList(state) {
     return state.cartList;

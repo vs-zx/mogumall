@@ -42,7 +42,7 @@ export default {
           // 滚动时，时刻抛出正在滚动的事件
           this.$emit("scrolling", position);
           this.timer = null;
-        }, 300);
+        }, 350);
       });
     });
   },
@@ -55,5 +55,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

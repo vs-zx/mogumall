@@ -1,14 +1,14 @@
 <template>
-  <scroll id="category-menu" v-if="categories.length">
+  <scroll id="category-menu" v-if="menus.length">
     <div class="menu-wrap">
       <div
         class="menu-item"
-        v-for="(item, index) in categories"
+        v-for="(item, index) in menus"
         :class="{ 'menu-item-active': index === currentIndex }"
-        @click="itemClick(index)"
+        @click="handleTabClick(index)"
         :key="index"
       >
-        {{ item.title }}{{ item }}
+        {{ item.title }}
       </div>
     </div>
   </scroll>
@@ -18,12 +18,12 @@
 import Scroll from "components/common/scroll/Scroll";
 
 export default {
-  name: "TabMenu",
+  name: "CateMenu",
   components: {
     Scroll,
   },
   props: {
-    categories: {
+    menus: {
       type: Array,
       default() {
         return [];
@@ -36,9 +36,12 @@ export default {
     };
   },
   methods: {
-    itemClick(index) {
+    handleTabClick(index) {
+      if (this.currentIndex === index) {
+        return;
+      }
       this.currentIndex = index;
-      this.$emit("selectItem", index);
+      this.$emit("changgeTab", index);
     },
   },
 };
@@ -54,7 +57,11 @@ export default {
     height: 45px;
     line-height: 45px;
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
+    color: #bababa;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #eee;
+    border-left: 3px solid #fff;
   }
   .menu-item-active {
     font-weight: 700;

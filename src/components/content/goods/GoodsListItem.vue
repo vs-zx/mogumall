@@ -22,11 +22,10 @@ export default {
     },
   },
   computed: {
-    // 判断当前图片url  ，优先首页
+    // 判断当前图片url  ， 分类页  详情页  首页
     realUrl() {
-      return this.goodsItem.show === undefined
-        ? this.goodsItem.image
-        : this.goodsItem.show.img;
+      const item = this.goodsItem;
+      return item.img || item.image || item.show.img;
     },
   },
   methods: {

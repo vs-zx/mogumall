@@ -1,10 +1,7 @@
 <template>
   <div id="list">
-    <div v-for="(item, index) in listData" :key="index" class="item">
-      <span class="icon">
-        <svg :fill="item.iconColor"><use :xlink:href="item.icon"></use></svg>
-      </span>
-      <div class="info">{{ item.info }}</div>
+    <div class="list-item" v-for="(item, index) in list" :key="index">
+      <div class="info">{{ item }}</div>
     </div>
   </div>
 </template>
@@ -13,7 +10,7 @@
 export default {
   name: "ListView",
   props: {
-    listData: {
+    list: {
       type: Array,
       default: function () {
         return [];
@@ -30,31 +27,15 @@ export default {
   color: #333;
 }
 
-#list .item {
+#list .list-item {
   height: 44px;
   line-height: 44px;
-  position: relative;
-}
-
-.icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.item .icon {
-  margin-top: 10px;
-  position: absolute;
-  left: 16px;
-  top: -7px;
-}
-
-.item .info {
   margin-left: 40px;
-  border-bottom: 1px solid rgba(100, 100, 100, 0.1);
   padding-left: 5px;
+  border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
 
-.item:last-of-type .info {
+#list .list-item:last-of-type .info {
   border-bottom: none;
 }
 </style>

@@ -48,6 +48,7 @@ export function request(config) {
             break;
         }
       }
+
       return Promise.reject(err);
     }
   );

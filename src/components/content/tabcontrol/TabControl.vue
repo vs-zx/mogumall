@@ -33,7 +33,6 @@ export default {
     initIndex(val){
       if(this.currentIndex===val){return}
       this.currentIndex=val;
-      // console.log('tabControl------'+this.currentIndex);
     }
   },
   methods: {
@@ -50,7 +49,7 @@ export default {
   display: flex;
   text-align: center;
   background: #fff;
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,.3);
+  box-shadow: 2px 1px 3px 0 rgba(0,0,0,.3);
   z-index: 4;
 }
 .tab-control-item {

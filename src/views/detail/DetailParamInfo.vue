@@ -56,7 +56,6 @@ export default {
   border-bottom: 5px solid #f2f5f8;
 }
 
-
 .sizes-title,
 .infos-title {
   font-weight: bold;
@@ -82,7 +81,6 @@ export default {
   color:#333;
   font-weight: bold;
 }
-
 
 .info-other {
   width: 100%;

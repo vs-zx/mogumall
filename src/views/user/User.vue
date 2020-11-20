@@ -10,21 +10,21 @@
     <!-- 用户账户情况 -->
     <section class="account">
       <div class="account-item">
-        <div class="number"><span class="balance">0.00</span>元</div>
-        <div class="account-info">我的余额</div>
+        <div class="sum"><span class="number">0.00</span>元</div>
+        <div class="account-text">我的余额</div>
       </div>
       <div class="account-item">
-        <div class="number"><span class="balance">0</span>个</div>
-        <div class="account-info">我的优惠</div>
+        <div class="sum"><span class="number">0</span>个</div>
+        <div class="account-text">我的优惠</div>
       </div>
       <div class="account-item">
-        <div class="number"><span class="balance">0</span>分</div>
-        <div class="account-info">我的积分</div>
+        <div class="sum"><span class="number">0</span>分</div>
+        <div class="account-text">我的积分</div>
       </div>
     </section>
     <!-- 其它选项 -->
-    <list-view :list-data="orderList" class="order-list"></list-view>
-    <list-view :list-data="serviceList" class="service-list"></list-view>
+    <list-view :list="orderList" class="order-list"></list-view>
+    <list-view :list="serviceList" class="service-list"></list-view>
   </div>
 </template>
 
@@ -43,69 +43,55 @@ export default {
   },
   data() {
     return {
-      orderList: [
-        { icon: "#order", iconColor: "#ff8198", info: "我的消息" },
-        { icon: "#point", iconColor: "#fc7b53", info: "积分商城" },
-        { icon: "#vip", iconColor: "#ffc636", info: "会员卡" },
-      ],
-      serviceList: [
-        { icon: "#service", iconColor: "#ff8198", info: "我的购物车" },
-        { icon: "#download", iconColor: "#ff8198", info: "下载购物APP" },
-      ],
+      orderList: ["我的消息", "积分商城", "会员卡"],
+      serviceList: ["我的购物车", "我的收藏", "下载购物APP"],
     };
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #user {
   width: 100%;
   height: 100%;
   padding-top: 44px;
   padding-bottom: 49px;
   background-color: #f2f2f2;
-}
-
-.user-nav {
-  background-color: var(--tint-color);
-  font-weight: 700;
-  color: #fff;
-}
-
-.account {
-  width: 100%;
-  display: flex;
-}
-
-.account-item {
-  width: 100%;
-  background-color: #fff;
-  margin-right: 1px;
-  text-align: center;
-}
-
-.account-item:last-of-type {
-  margin-right: 0;
-}
-
-.account-item {
-  color: #666;
-  font-size: 13px;
-  padding: 18px;
-}
-
-.account-item .balance {
-  font-size: 24px;
-  font-weight: 700;
-  color: #ff5f3e;
-}
-
-.account-info {
-  margin-top: 6px;
-}
-
-.order-list,
-.service-list {
-  margin-top: 12px;
+  .user-nav {
+    background-color: var(--tint-color);
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 0 0 0 #fff;
+  }
+  .account {
+    display: flex;
+    width: 100%;
+    .account-item {
+      flex: 1;
+      background-color: #fff;
+      margin-right: 2px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      padding: 18px;
+      &:last-of-type {
+        margin-right: 0;
+      }
+      .number {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ff5f3e;
+        margin: 0 2px;
+      }
+      .account-text {
+        margin-top: 6px;
+        font-size: 14px;
+      }
+    }
+  }
+  .order-list,
+  .service-list {
+    margin-top: 12px;
+  }
 }
 </style>

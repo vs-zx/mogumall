@@ -198,7 +198,6 @@ export default {
     setTimeout(() => {
       this.getHomeGoods("sell");
     }, 2000);
-    console.log("created");
   },
   mounted() {
     this.$nextTick(() => {
@@ -208,11 +207,11 @@ export default {
   },
   activated() {
     this.isKeep = true;
-    console.log("activated");
+    // console.log("activated");
   },
   deactivated() {
     this.isKeep = false;
-    console.log("deactivated");
+    // console.log("deactivated");
   },
 };
 </script>

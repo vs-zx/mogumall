@@ -4,7 +4,6 @@ import Toast from "./Toast";
 const obj = {};
 
 obj.install = function(vue) {
-  console.log("my ---------------------");
   // 1 创建组件构造器
   const toastConstructor = vue.extend(Toast);
   // 2 new ,创建组件对象  —— 虚拟
