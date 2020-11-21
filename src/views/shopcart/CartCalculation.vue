@@ -68,7 +68,7 @@ export default {
       // console.log(this.$store.getters.uncheckedList);
       // 如果都没选，提示选择商品
       if (!this.checkedCount) {
-        this.$toast.show("请选择所需商品!");
+        this.$toast.show("请选择商品!");
         return;
       }
       // 购买支付，并清空购物车

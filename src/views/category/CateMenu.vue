@@ -41,7 +41,7 @@ export default {
         return;
       }
       this.currentIndex = index;
-      this.$emit("changgeTab", index);
+      this.$emit("changeTab", index);
     },
   },
 };

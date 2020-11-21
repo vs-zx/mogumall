@@ -6,7 +6,6 @@
     </nav-bar>
     <!-- 用户信息 -->
     <user-info></user-info>
-
     <!-- 用户账户情况 -->
     <section class="account">
       <div class="account-item">

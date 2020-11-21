@@ -132,12 +132,14 @@ export default {
     },
     // 请求数据
     getDetailShop() {
-      getDetailShopData(this.iid).then((res) =>
-        this.getDetailShopDateSucess(res)
-      ).catch(err=>{
-        console.log(err);
-        this.$router.push('/home')
-      });
+      getDetailShopData(this.iid)
+        .then((res) => this.getDetailShopDateSucess(res))
+        .catch((err) => {
+          // console.log(err);
+          // console.log(err.response.status);
+          this.$toast.show("当前商品失效", 2000);
+          this.$router.push("/category");
+        });
     },
     getDetailShopDateSucess(res) {
       const data = res.result;
@@ -152,7 +154,7 @@ export default {
       );
       // 3 店铺信息
       this.shop = new Shop(data.shopInfo);
-      // 4 商品参数
+      // 4 商品参数  有的没有参数
       this.paramInfo = new GoodsParam(data.itemParams);
       // 5 商品详情数据
       this.detailInfo = data.detailInfo;
@@ -174,7 +176,6 @@ export default {
     },
     // 总是滚动，在滚动状态做操作
     detailScrolling(position) {
-      this.$refs.detailScroll.scroll.refresh();
       this.getRefsHeight();
 
       // 实时获取滚动距离
@@ -230,7 +231,7 @@ export default {
         return;
       }
       this.showTip();
-      console.log("加入购物车");
+      // console.log("加入购物车");
       // 1.创建对象
       const obj = {};
       // 2.对象信息

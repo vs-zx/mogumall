@@ -1,18 +1,20 @@
 <template>
   <div class="param-info" v-if="isShow">
     <!-- 商品尺寸表格 -->
-    <div class="sizes-title">{{ paramInfo.sizesTitle }}</div>
-    <table
-      class="info-size"
-      v-for="(table, index) in paramInfo.sizes"
-      :key="index"
-    >
-      <tr v-for="(tr, index) in table" :key="index">
-        <td v-for="(td, index) in tr" :key="index">{{ td }}</td>
-      </tr>
-    </table>
-    <!-- 尺寸的免责声明 -->
-    <div class="disclaimer">{{ paramInfo.disclaimer }}</div>
+    <div v-if="showRule">
+      <div class="sizes-title">{{ paramInfo.rule.sizesTitle }}</div>
+      <table
+        class="info-size"
+        v-for="(table, index) in paramInfo.rule.sizes"
+        :key="index"
+      >
+        <tr v-for="(tr, index) in table" :key="index">
+          <td v-for="(td, index) in tr" :key="index">{{ td }}</td>
+        </tr>
+      </table>
+      <!-- 尺寸的免责声明 -->
+      <div class="disclaimer">{{ paramInfo.rule.disclaimer }}</div>
+    </div>
 
     <!-- 商品详情参数 -->
     <div class="infos-title">{{ paramInfo.infosTitle }}</div>
@@ -44,6 +46,9 @@ export default {
   computed: {
     isShow() {
       return Object.keys(this.paramInfo).length !== 0;
+    },
+    showRule() {
+      return Object.keys(this.paramInfo.rule).length !== 0;
     },
   },
 };
@@ -78,7 +83,7 @@ export default {
   padding: 5px 0 10px;
   margin-bottom: 10px;
   letter-spacing: 2px;
-  color:#333;
+  color: #333;
   font-weight: bold;
 }
 
@@ -96,7 +101,7 @@ export default {
   }
   td {
     line-height: 20px;
-    letter-spacing: 2px;;
+    letter-spacing: 2px;
   }
   .info-other-key {
     width: 95px;

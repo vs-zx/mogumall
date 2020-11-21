@@ -14,8 +14,8 @@ export function getDetailShopData(iid) {
 // 详情页推荐数据
 export function getRecommend() {
   return request({
-    url: '/recommend'
-  })
+    url: "/recommend"
+  });
 }
 
 // 价格福利类
@@ -46,9 +46,14 @@ export class Shop {
 // 商品参数类
 export class GoodsParam {
   constructor(param) {
-    this.sizes = param.rule.tables; // 商品尺寸表数据  -- 可能有多个表格
-    this.disclaimer = param.rule.disclaimer; // 免责声明
-    this.sizesTitle = param.rule.key; // 尺寸标题
+    // 有的商品没有rule信息
+    const rule={}
+    if (param.rule) {
+      rule.sizes = param.rule.tables; // 商品尺寸表数据  -- 可能有多个表格
+      rule.disclaimer = param.rule.disclaimer; // 免责声明
+      rule.sizesTitle = param.rule.key; // 尺寸标题
+    }
+    this.rule=rule;
     this.infos = param.info.set; // 商品普通描述信息
     this.infosTitle = param.info.key; // 尺寸标题
     // 注: images可能没有值(某些商品有值, 某些没有值)

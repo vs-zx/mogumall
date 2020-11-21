@@ -20,7 +20,7 @@
       class="home-content"
       ref="scroll"
       @updataGoods="updataGoods"
-      @scrolling="handleScrolling"
+      @scrolling="homeScrolling"
     >
       <!-- 首页轮播 -->
       <home-swiper :banners="banners" :isKeep="isKeep"></home-swiper>
@@ -161,7 +161,7 @@ export default {
       this.$refs.scroll.scroll.scrollTo(0, 0, 2000);
     },
     // 对实时滚动，做出操作  —— 决定返回按钮、tabControl的显示性
-    handleScrolling(position) {
+    homeScrolling(position) {
       this.initTabOffset();
 
       this.showTabStick(-position.y);

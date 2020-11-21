@@ -1,12 +1,12 @@
 <template>
-    <scroll v-if="cartList.length" ref="cartScroll">
-      <cart-list-item
-        v-for="(item,index) in cartList"
-        :cart-item="item"
-        :index="index"
-        :key="item.iid"
-      ></cart-list-item>
-    </scroll>
+  <scroll v-if="isShow" ref="cartScroll">
+    <cart-list-item
+      v-for="(item, index) in cartList"
+      :cart-item="item"
+      :index="index"
+      :key="item.iid"
+    ></cart-list-item>
+  </scroll>
 </template>
 
 <script>
@@ -15,6 +15,10 @@ import CartListItem from "./CartListItem";
 
 export default {
   name: "CartList",
+  components: {
+    Scroll,
+    CartListItem,
+  },
   props: {
     cartList: {
       type: Array,
@@ -23,22 +27,11 @@ export default {
       },
     },
   },
-  components: {
-    Scroll,
-    CartListItem,
+  computed: {
+    isShow() {
+      return this.cartList.length;
+    },
   },
-  computed:{
-    isRefresh(){
-      const a=this.$store.getters.cartCount;
-      this.toRefresh();
-      return a;
-    }
-  },
-  methods:{
-    toRefresh(){
-      this.$refs.cartScroll.scroll.refresh();
-    }
-  }
 };
 </script>
 

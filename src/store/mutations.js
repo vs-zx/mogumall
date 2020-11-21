@@ -39,6 +39,10 @@ const mutations = {
     // 2 将剩余商品作为总商品
     state.cartList = p.b;
     localStorage.setItem("cList", JSON.stringify(state.cartList));
+  },
+  clearCart(state){
+    state.cartList=[];
+    localStorage.removeItem("cList");
   }
 };
 

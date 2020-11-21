@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "TabBase",
+  name: "CateBase",
   props: {
     baseDate: {
       type: Object,

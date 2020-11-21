@@ -17,7 +17,6 @@
 <script>
 import NavBar from "components/common/navbar/NavBar";
 import CartList from "components/content/cartlist/CartList";
-import Toast from "components/common/toast/Toast";
 
 import CartCalculation from "./CartCalculation";
 
@@ -27,12 +26,10 @@ export default {
     NavBar,
     CartList,
     CartCalculation,
-    Toast,
   },
   data() {
     return {
       message: "",
-      showToast: false,
     };
   },
   computed: {
@@ -44,20 +41,17 @@ export default {
     },
   },
   methods: {
-    // 清空购物车，缓存、vuex都清空
+    // 清空购物车
     clearCart() {
-      const list = this.$store.state.cartList;
-      if (!list.length) {
+      if (!this.cartCount) {
         return;
       }
-      localStorage.removeItem("cList");
-      this.$store.state.cartList = [];
-      // console.log(this.$store.getters.cartList);
+      this.$store.commit("clearCart");
+      this.$toast.show("购物车已清空");
     },
   },
   mounted() {
-    console.log("进入购物车");
-    // console.log(this.$store.getters);
+    // console.log("进入购物车");
   },
 };
 </script>
@@ -89,10 +83,10 @@ export default {
     border-radius: 5px;
   }
 }
-.buy-title{
-  height:200px;
+.buy-title {
+  height: 200px;
 }
-.buy-list{
-  height:500px;
+.buy-list {
+  height: 500px;
 }
 </style>

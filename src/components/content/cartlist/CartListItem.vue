@@ -32,7 +32,7 @@
 import CheckButton from "./CheckButton";
 
 export default {
-  name: "ShopCartItem",
+  name: "CartListItem",
   components: {
     CheckButton,
   },
@@ -58,7 +58,6 @@ export default {
       // 提交存储
       this.$store.commit('changeChecked',this.index)
       // console.log(this.cartItem);
-      // console.log(this.$store.state.cartList[this.index]);
     },
     changeBtn() {
       this.showOtherBtn = !this.showOtherBtn;
@@ -77,6 +76,7 @@ export default {
     },
   },
   deactivated(){
+    // 显示按钮的切换
     this.showOtherBtn=false;
   }
 };

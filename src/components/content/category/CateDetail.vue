@@ -19,7 +19,7 @@ import GoodsList from "components/content/goods/GoodsList";
 import Bus from "common/bus.js";
 
 export default {
-  name: "TabDetail",
+  name: "CateDetail",
   components: {
     TabControl,
     GoodsList,

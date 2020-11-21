@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "HomeSwiper",
+  name: "DetailSwiper",
   props: {
     banners: {
       type: Array,

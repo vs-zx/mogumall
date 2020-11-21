@@ -10,7 +10,7 @@ export function request(config) {
   // 2 设置拦截器
   instance1.interceptors.request.use(
     function(config) {
-      console.log(config.params);
+      // console.log(config.params);
       if (config.params) {
         if (config.params.type === "pop" && config.params.page > 50) {
           throw new Error("pop页面page只有50页");
@@ -34,7 +34,6 @@ export function request(config) {
       if (response.status === 200) {
         return response.data;
       } else {
-        console.log("响应内容出错");
       }
     },
     function(err) {
@@ -48,7 +47,6 @@ export function request(config) {
             break;
         }
       }
-
       return Promise.reject(err);
     }
   );

@@ -10,7 +10,7 @@
       <cate-menu
         class="content-left"
         :menus="menus"
-        @changgeTab="changgeTab"
+        @changeTab="changeTab"
       ></cate-menu>
       <!-- 右侧子类内容展示区 ；根据菜单变化，动态切换数据-->
       <cate-content
@@ -32,7 +32,7 @@ import {
   getSubcategory,
   getCategoryDetail,
 } from "network/category";
-import Bus from 'common/bus.js'
+import Bus from "common/bus.js";
 
 export default {
   name: "Category",
@@ -107,10 +107,10 @@ export default {
       });
     },
     // 切换菜单选项
-    changgeTab(index) {
+    changeTab(index) {
       this.currentIndex = index;
       this.getCateContent();
-      Bus.$emit('CateRefresh')
+      Bus.$emit("CateRefresh");
     },
   },
   created() {
@@ -119,6 +119,9 @@ export default {
   },
   mounted() {
     // console.log(this.Contentlist);
+    this.$nextTick(() => {
+      Bus.$emit("CateRefresh");
+    });
   },
 };
 </script>

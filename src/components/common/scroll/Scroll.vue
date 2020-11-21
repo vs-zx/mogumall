@@ -27,6 +27,7 @@ export default {
           stop: 0,
         },
       });
+      this.scroll.refresh();
       // 监听上拉事件
       this.scroll.on("pullingUp", () => {
         this.$emit("updataGoods"); // 抛出事件，请求新数据
@@ -41,6 +42,7 @@ export default {
         this.timer = setTimeout(() => {
           // 滚动时，时刻抛出正在滚动的事件
           this.$emit("scrolling", position);
+          this.scroll.refresh();
           this.timer = null;
         }, 350);
       });

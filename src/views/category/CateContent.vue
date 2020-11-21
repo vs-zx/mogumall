@@ -1,15 +1,15 @@
 <template>
-  <scroll v-show="isShow" ref="cateScroll" @scrolling="cateScrlling">
-    <tab-base :baseDate="contentData.baseDate"></tab-base>
-    <tab-detail :detailDate="contentData.detailDate"></tab-detail>
+  <scroll v-show="isShow" ref="cateScroll">
+    <cate-base :baseDate="contentData.baseDate"></cate-base>
+    <cate-detail :detailDate="contentData.detailDate"></cate-detail>
   </scroll>
 </template>
 
 <script>
 import Scroll from "components/common/scroll/Scroll";
 
-import TabBase from "components/content/category/TabBase";
-import TabDetail from "components/content/category/TabDetail";
+import CateBase from "components/content/category/CateBase";
+import CateDetail from "components/content/category/CateDetail";
 
 import Bus from "common/bus.js";
 
@@ -17,8 +17,8 @@ export default {
   name: "CateContent",
   components: {
     Scroll,
-    TabBase,
-    TabDetail,
+    CateBase,
+    CateDetail,
   },
   props: {
     contentData: {
@@ -38,21 +38,7 @@ export default {
       return Object.keys(this.contentData).length > 1;
     },
   },
-  methods: {
-    cateScrlling() {
-      if (this.timer) {
-        clearTimeout(this.timer);
-      }
-      this.timer = setTimeout(() => {
-        this.$refs.cateScroll.scroll.refresh();
-        this.timer = null;
-      }, 1000);
-    },
-  },
   mounted() {
-    setTimeout(() => {
-      this.$refs.cateScroll.scroll.refresh();
-    }, 500);
     Bus.$on("CateRefresh", () => {
       this.$refs.cateScroll.scroll.refresh();
       this.$refs.cateScroll.scroll.scrollTo(0,0);
